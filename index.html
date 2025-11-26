@@ -6,20 +6,20 @@
     <title>TapTrack - Sustainable Journey</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap');
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'DM Sans', sans-serif;
             background: linear-gradient(180deg, #fef5f5 0%, #f0f9ff 100%);
             color: #2d3748;
             overflow-x: hidden;
         }
-        
+
         .container {
             max-width: 480px;
             margin: 0 auto;
@@ -27,8 +27,60 @@
             backdrop-filter: blur(20px);
             min-height: 100vh;
             box-shadow: 0 0 60px rgba(0, 0, 0, 0.06);
+            position: relative;
         }
-        
+
+        /* Desktop Layout - FULLSCREEN */
+        @media (min-width: 1024px) {
+            .container {
+                max-width: 100%;
+                display: grid;
+                grid-template-columns: 1fr 600px 1fr;
+                grid-template-areas:
+                    "header header header"
+                    "nav nav nav"
+                    ". content ."
+                    "footer footer footer";
+            }
+
+            .header {
+                grid-area: header;
+                border-radius: 0;
+            }
+
+            .nav-pills {
+                grid-area: nav;
+            }
+
+            .content {
+                grid-area: content;
+                max-width: 600px;
+                margin: 0 auto;
+            }
+
+            .footer {
+                grid-area: footer;
+            }
+
+            /* Custom scrollbar for desktop */
+            ::-webkit-scrollbar {
+                width: 10px;
+            }
+
+            ::-webkit-scrollbar-track {
+                background: #f1f1f1;
+            }
+
+            ::-webkit-scrollbar-thumb {
+                background: #c7f5e3;
+                border-radius: 5px;
+            }
+
+            ::-webkit-scrollbar-thumb:hover {
+                background: #b5e7d9;
+            }
+        }
+
         /* Header */
         .header {
             background: linear-gradient(135deg, #c7f5e3 0%, #b5e7d9 100%);
@@ -37,7 +89,13 @@
             border-radius: 0 0 40px 40px;
             position: relative;
         }
-        
+
+        @media (min-width: 768px) {
+            .header {
+                padding: 50px 32px 60px;
+            }
+        }
+
         .points-bubble {
             position: absolute;
             top: 24px;
@@ -52,37 +110,69 @@
             color: #2d3748;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
             animation: float 3s ease-in-out infinite;
+            cursor: pointer;
+            transition: all 0.3s;
         }
-        
+
+        .points-bubble:hover {
+            transform: scale(1.1) translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
         @keyframes float {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-8px); }
         }
-        
+
         .header-emoji {
             font-size: 4em;
             margin-bottom: 12px;
             animation: rotate 20s linear infinite;
+            cursor: pointer;
+            transition: transform 0.3s;
         }
-        
+
+        .header-emoji:hover {
+            transform: scale(1.2);
+            animation: none;
+        }
+
+        @media (min-width: 768px) {
+            .header-emoji {
+                font-size: 5em;
+            }
+        }
+
         @keyframes rotate {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
-        
+
         .header h1 {
             font-size: 1.8em;
             font-weight: 600;
             color: #2d3748;
             margin-bottom: 8px;
         }
-        
+
+        @media (min-width: 768px) {
+            .header h1 {
+                font-size: 2.2em;
+            }
+        }
+
         .header p {
             color: #4a5568;
             font-size: 0.95em;
             font-weight: 400;
         }
-        
+
+        @media (min-width: 768px) {
+            .header p {
+                font-size: 1.1em;
+            }
+        }
+
         /* Navigation Pills */
         .nav-pills {
             display: flex;
@@ -94,7 +184,14 @@
             z-index: 100;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
         }
-        
+
+        @media (min-width: 768px) {
+            .nav-pills {
+                padding: 24px 32px;
+                gap: 12px;
+            }
+        }
+
         .nav-pill {
             flex: 1;
             padding: 12px 16px;
@@ -111,28 +208,60 @@
             justify-content: center;
             gap: 6px;
         }
-        
+
+        @media (min-width: 768px) {
+            .nav-pill {
+                padding: 14px 20px;
+                font-size: 0.95em;
+            }
+
+            .nav-pill:hover {
+                background: #e8f5f0;
+                transform: translateY(-2px);
+            }
+        }
+
         .nav-pill.active {
             background: linear-gradient(135deg, #c7f5e3 0%, #b5e7d9 100%);
             color: #2d3748;
             transform: scale(1.05);
             box-shadow: 0 4px 12px rgba(183, 231, 217, 0.4);
         }
-        
+
+        .nav-pill-emoji {
+            font-size: 1.2em;
+        }
+
+        @media (max-width: 380px) {
+            .nav-pill-text {
+                display: none;
+            }
+
+            .nav-pill-emoji {
+                font-size: 1.5em;
+            }
+        }
+
         /* Content */
         .content {
             padding: 24px;
         }
-        
+
+        @media (min-width: 768px) {
+            .content {
+                padding: 32px 40px;
+            }
+        }
+
         .tab-content {
             display: none;
             animation: fadeInUp 0.5s ease;
         }
-        
+
         .tab-content.active {
             display: block;
         }
-        
+
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -143,7 +272,7 @@
                 transform: translateY(0);
             }
         }
-        
+
         /* Visual Cards */
         .visual-card {
             background: white;
@@ -153,21 +282,50 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
             border: 2px solid transparent;
             transition: all 0.3s;
+            cursor: pointer;
         }
-        
+
         .visual-card:hover {
             border-color: #c7f5e3;
-            transform: translateY(-2px);
+            transform: translateY(-4px);
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
         }
-        
+
+        @media (min-width: 768px) {
+            .visual-card {
+                padding: 32px;
+                margin-bottom: 20px;
+            }
+        }
+
         .card-emoji {
             font-size: 3.5em;
             text-align: center;
             margin-bottom: 16px;
             display: block;
+            animation: bounce 2s ease-in-out infinite;
         }
-        
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .visual-card:hover .card-emoji {
+            animation: spin 0.6s ease;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @media (min-width: 768px) {
+            .card-emoji {
+                font-size: 4.5em;
+            }
+        }
+
         .card-title {
             font-size: 1.1em;
             font-weight: 600;
@@ -175,14 +333,26 @@
             color: #2d3748;
             margin-bottom: 8px;
         }
-        
+
+        @media (min-width: 768px) {
+            .card-title {
+                font-size: 1.3em;
+            }
+        }
+
         .card-text {
             text-align: center;
             color: #718096;
             font-size: 0.9em;
             line-height: 1.6;
         }
-        
+
+        @media (min-width: 768px) {
+            .card-text {
+                font-size: 1em;
+            }
+        }
+
         /* Visual Grid */
         .visual-grid {
             display: grid;
@@ -190,38 +360,75 @@
             gap: 12px;
             margin: 24px 0;
         }
-        
+
+        @media (min-width: 768px) {
+            .visual-grid {
+                gap: 16px;
+                margin: 32px 0;
+            }
+        }
+
         .visual-box {
             background: white;
             border-radius: 20px;
             padding: 24px 16px;
             text-align: center;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
-            transition: all 0.3s;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
         }
-        
+
         .visual-box:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            transform: scale(1.1) translateY(-8px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
         }
-        
+
+        @media (min-width: 768px) {
+            .visual-box {
+                padding: 32px 20px;
+            }
+        }
+
         .visual-box-emoji {
             font-size: 3em;
             margin-bottom: 12px;
+            transition: transform 0.3s;
         }
-        
+
+        .visual-box:hover .visual-box-emoji {
+            transform: scale(1.3);
+        }
+
+        @media (min-width: 768px) {
+            .visual-box-emoji {
+                font-size: 3.5em;
+            }
+        }
+
         .visual-box-value {
             font-size: 2em;
             font-weight: 700;
             color: #2d3748;
             margin-bottom: 4px;
         }
-        
+
+        @media (min-width: 768px) {
+            .visual-box-value {
+                font-size: 2.5em;
+            }
+        }
+
         .visual-box-label {
             font-size: 0.8em;
             color: #718096;
         }
-        
+
+        @media (min-width: 768px) {
+            .visual-box-label {
+                font-size: 0.9em;
+            }
+        }
+
         /* Hero Impact Card */
         .hero-impact {
             background: linear-gradient(135deg, #e0c3fc 0%, #d4a5fc 100%);
@@ -230,31 +437,61 @@
             text-align: center;
             margin-bottom: 24px;
             box-shadow: 0 8px 32px rgba(212, 165, 252, 0.3);
+            transition: all 0.3s;
+            cursor: pointer;
         }
-        
+
+        .hero-impact:hover {
+            transform: scale(1.02);
+            box-shadow: 0 12px 40px rgba(212, 165, 252, 0.4);
+        }
+
+        @media (min-width: 768px) {
+            .hero-impact {
+                padding: 40px 32px;
+            }
+        }
+
         .hero-impact h2 {
             font-size: 1.4em;
             font-weight: 600;
             color: white;
             margin-bottom: 8px;
         }
-        
+
+        @media (min-width: 768px) {
+            .hero-impact h2 {
+                font-size: 1.8em;
+            }
+        }
+
         .hero-impact-subtitle {
             color: rgba(255, 255, 255, 0.9);
             font-size: 0.9em;
             margin-bottom: 24px;
         }
-        
+
+        @media (min-width: 768px) {
+            .hero-impact-subtitle {
+                font-size: 1.1em;
+            }
+        }
+
         .impact-row {
             display: flex;
             justify-content: space-around;
             margin-top: 24px;
         }
-        
+
         .impact-item {
             text-align: center;
+            transition: transform 0.3s;
         }
-        
+
+        .impact-item:hover {
+            transform: scale(1.15);
+        }
+
         .impact-number {
             font-size: 2.2em;
             font-weight: 700;
@@ -262,36 +499,66 @@
             display: block;
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
-        
+
+        @media (min-width: 768px) {
+            .impact-number {
+                font-size: 2.8em;
+            }
+        }
+
         .impact-label {
             font-size: 0.75em;
             color: rgba(255, 255, 255, 0.9);
             margin-top: 4px;
         }
-        
+
+        @media (min-width: 768px) {
+            .impact-label {
+                font-size: 0.85em;
+            }
+        }
+
         /* Progress Ring */
         .progress-ring {
             margin: 24px auto;
             text-align: center;
         }
-        
+
+        @media (min-width: 768px) {
+            .progress-ring {
+                margin: 32px auto;
+            }
+        }
+
         .progress-circle {
             width: 140px;
             height: 140px;
             margin: 0 auto;
             position: relative;
         }
-        
+
+        @media (min-width: 768px) {
+            .progress-circle {
+                width: 180px;
+                height: 180px;
+            }
+        }
+
         .progress-svg {
             transform: rotate(-90deg);
+            transition: all 0.3s;
         }
-        
+
+        .progress-circle:hover .progress-svg {
+            transform: rotate(-90deg) scale(1.1);
+        }
+
         .progress-bg {
             fill: none;
             stroke: #f7fafc;
             stroke-width: 12;
         }
-        
+
         .progress-bar-circle {
             fill: none;
             stroke: url(#gradient);
@@ -299,7 +566,7 @@
             stroke-linecap: round;
             transition: stroke-dashoffset 1s ease;
         }
-        
+
         .progress-text {
             position: absolute;
             top: 50%;
@@ -309,13 +576,25 @@
             font-weight: 700;
             color: #2d3748;
         }
-        
+
+        @media (min-width: 768px) {
+            .progress-text {
+                font-size: 2.5em;
+            }
+        }
+
         .progress-label {
             font-size: 0.9em;
             color: #718096;
             margin-top: 12px;
         }
-        
+
+        @media (min-width: 768px) {
+            .progress-label {
+                font-size: 1em;
+            }
+        }
+
         /* Badge Pills */
         .badges-container {
             display: grid;
@@ -323,7 +602,14 @@
             gap: 12px;
             margin: 24px 0;
         }
-        
+
+        @media (min-width: 768px) {
+            .badges-container {
+                gap: 16px;
+                margin: 32px 0;
+            }
+        }
+
         .badge-pill {
             background: #f7fafc;
             border-radius: 20px;
@@ -332,26 +618,30 @@
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
+            cursor: pointer;
         }
-        
-        .badge-pill::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
-            opacity: 0;
-            transition: opacity 0.4s;
+
+        @media (min-width: 768px) {
+            .badge-pill {
+                padding: 28px 16px;
+            }
         }
-        
+
+        .badge-pill:hover {
+            transform: translateY(-4px);
+        }
+
         .badge-pill.unlocked {
             background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
             transform: scale(1.05);
             box-shadow: 0 6px 20px rgba(253, 203, 110, 0.4);
         }
-        
+
+        .badge-pill.unlocked:hover {
+            transform: scale(1.1) translateY(-4px);
+            box-shadow: 0 10px 30px rgba(253, 203, 110, 0.5);
+        }
+
         .badge-emoji {
             font-size: 2.5em;
             margin-bottom: 8px;
@@ -360,17 +650,24 @@
             position: relative;
             z-index: 1;
         }
-        
+
+        @media (min-width: 768px) {
+            .badge-emoji {
+                font-size: 3em;
+            }
+        }
+
         .badge-pill.unlocked .badge-emoji {
             filter: grayscale(0) opacity(1);
-            animation: bounce 0.6s ease;
+            animation: popBounce 0.6s ease;
         }
-        
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+
+        @keyframes popBounce {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
         }
-        
+
         .badge-name {
             font-size: 0.7em;
             color: #718096;
@@ -378,12 +675,18 @@
             position: relative;
             z-index: 1;
         }
-        
+
+        @media (min-width: 768px) {
+            .badge-name {
+                font-size: 0.8em;
+            }
+        }
+
         .badge-pill.unlocked .badge-name {
             color: #2d3748;
             font-weight: 600;
         }
-        
+
         /* Action Button */
         .action-btn {
             width: 100%;
@@ -403,27 +706,65 @@
             justify-content: center;
             gap: 8px;
         }
-        
+
+        @media (min-width: 768px) {
+            .action-btn {
+                padding: 20px;
+                font-size: 1.1em;
+            }
+
+            .action-btn:hover {
+                box-shadow: 0 6px 30px rgba(183, 231, 217, 0.6);
+                transform: translateY(-2px);
+            }
+        }
+
         .action-btn:active {
             transform: scale(0.97);
         }
-        
-        .action-btn:hover {
-            box-shadow: 0 6px 30px rgba(183, 231, 217, 0.6);
-        }
-        
+
         /* Journey Steps */
         .journey-steps {
             margin: 24px 0;
         }
-        
+
+        @media (min-width: 768px) {
+            .journey-steps {
+                margin: 32px 0;
+            }
+        }
+
         .journey-step {
             display: flex;
             gap: 16px;
             margin-bottom: 24px;
             align-items: center;
+            opacity: 0;
+            animation: slideIn 0.5s ease forwards;
         }
-        
+
+        .journey-step:nth-child(1) { animation-delay: 0.1s; }
+        .journey-step:nth-child(2) { animation-delay: 0.2s; }
+        .journey-step:nth-child(3) { animation-delay: 0.3s; }
+        .journey-step:nth-child(4) { animation-delay: 0.4s; }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @media (min-width: 768px) {
+            .journey-step {
+                gap: 20px;
+            }
+        }
+
         .step-circle {
             width: 56px;
             height: 56px;
@@ -435,26 +776,58 @@
             font-size: 2em;
             flex-shrink: 0;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s;
         }
-        
+
+        .journey-step:hover .step-circle {
+            transform: scale(1.15) rotate(10deg);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        @media (min-width: 768px) {
+            .step-circle {
+                width: 64px;
+                height: 64px;
+                font-size: 2.5em;
+            }
+        }
+
         .step-content h4 {
             font-size: 1em;
             color: #2d3748;
             margin-bottom: 4px;
             font-weight: 600;
         }
-        
+
+        @media (min-width: 768px) {
+            .step-content h4 {
+                font-size: 1.1em;
+            }
+        }
+
         .step-content p {
             font-size: 0.85em;
             color: #718096;
             line-height: 1.5;
         }
-        
+
+        @media (min-width: 768px) {
+            .step-content p {
+                font-size: 0.95em;
+            }
+        }
+
         /* Minimal List */
         .minimal-list {
             margin: 20px 0;
         }
-        
+
+        @media (min-width: 768px) {
+            .minimal-list {
+                margin: 28px 0;
+            }
+        }
+
         .list-item {
             background: white;
             border-radius: 16px;
@@ -464,24 +837,61 @@
             align-items: center;
             gap: 16px;
             box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s;
+            cursor: pointer;
         }
-        
+
+        .list-item:hover {
+            transform: translateX(8px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        @media (min-width: 768px) {
+            .list-item {
+                padding: 20px;
+                margin-bottom: 12px;
+            }
+        }
+
         .list-emoji {
             font-size: 2em;
+            transition: transform 0.3s;
         }
-        
+
+        .list-item:hover .list-emoji {
+            transform: scale(1.3);
+        }
+
+        @media (min-width: 768px) {
+            .list-emoji {
+                font-size: 2.5em;
+            }
+        }
+
         .list-text {
             flex: 1;
             font-size: 0.9em;
             color: #4a5568;
         }
-        
+
+        @media (min-width: 768px) {
+            .list-text {
+                font-size: 1em;
+            }
+        }
+
         .list-value {
             font-size: 1.1em;
             font-weight: 700;
             color: #48bb78;
         }
-        
+
+        @media (min-width: 768px) {
+            .list-value {
+                font-size: 1.3em;
+            }
+        }
+
         /* Info Bubble */
         .info-bubble {
             background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
@@ -490,18 +900,52 @@
             margin: 20px 0;
             text-align: center;
             box-shadow: 0 4px 20px rgba(253, 203, 110, 0.3);
+            transition: all 0.3s;
+            cursor: pointer;
         }
-        
+
+        .info-bubble:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 28px rgba(253, 203, 110, 0.4);
+        }
+
+        @media (min-width: 768px) {
+            .info-bubble {
+                padding: 28px;
+            }
+        }
+
         .info-bubble p {
             color: #2d3748;
             font-size: 0.9em;
             line-height: 1.6;
         }
-        
+
+        @media (min-width: 768px) {
+            .info-bubble p {
+                font-size: 1em;
+            }
+        }
+
         .info-bubble strong {
             font-weight: 700;
         }
-        
+
+        /* Section Title */
+        .section-title {
+            margin: 32px 0 20px;
+            font-size: 1.2em;
+            color: #2d3748;
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .section-title {
+                font-size: 1.4em;
+                margin: 40px 0 24px;
+            }
+        }
+
         /* Footer */
         .footer {
             text-align: center;
@@ -509,19 +953,43 @@
             background: #f7fafc;
             margin-top: 40px;
         }
-        
+
+        @media (min-width: 768px) {
+            .footer {
+                padding: 40px 32px;
+            }
+        }
+
         .footer-emoji {
             font-size: 2em;
             margin-bottom: 8px;
+            animation: sway 3s ease-in-out infinite;
         }
-        
+
+        @keyframes sway {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        @media (min-width: 768px) {
+            .footer-emoji {
+                font-size: 2.5em;
+            }
+        }
+
         .footer-text {
             font-size: 0.85em;
             color: #718096;
             line-height: 1.6;
         }
-        
-        /* Floating Elements */
+
+        @media (min-width: 768px) {
+            .footer-text {
+                font-size: 0.95em;
+            }
+        }
+
+        /* Floating Shapes */
         .floating-shape {
             position: fixed;
             border-radius: 50%;
@@ -529,373 +997,446 @@
             z-index: 0;
             opacity: 0.1;
         }
-        
+
         .shape-1 {
             width: 300px;
             height: 300px;
             background: linear-gradient(135deg, #c7f5e3 0%, #b5e7d9 100%);
             top: -100px;
             right: -100px;
+            animation: floatShape 20s ease-in-out infinite;
         }
-        
+
         .shape-2 {
             width: 200px;
             height: 200px;
             background: linear-gradient(135deg, #e0c3fc 0%, #d4a5fc 100%);
             bottom: 100px;
             left: -50px;
+            animation: floatShape 15s ease-in-out infinite reverse;
+        }
+
+        @keyframes floatShape {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(20px, 20px) scale(1.1); }
+        }
+
+        /* Notification Popup */
+        .notification {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #c7f5e3 0%, #b5e7d9 100%);
+            color: #2d3748;
+            padding: 20px 32px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 1.1em;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            animation: popIn 0.3s ease;
+        }
+
+        @media (min-width: 768px) {
+            .notification {
+                font-size: 1.3em;
+                padding: 24px 40px;
+            }
+        }
+
+        @keyframes popIn {
+            from { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+            to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+
+        @keyframes popOut {
+            from { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            to { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+        }
+
+        /* Loading Animation */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Confetti Effect */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #ffd700;
+            z-index: 999;
+            pointer-events: none;
+        }
+
+        @keyframes confettiFall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="floating-shape shape-1"></div>
-    <div class="floating-shape shape-2"></div>
-    
-    <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <div class="points-bubble">
-                <span style="font-size: 1.2em;">⭐</span>
-                <span id="totalPoints">250</span>
-            </div>
-            <div class="header-emoji">🌿</div>
-            <h1>TapTrack</h1>
-            <p>Your sustainable journey</p>
+<div class="floating-shape shape-1"></div>
+<div class="floating-shape shape-2"></div>
+
+<div class="container">
+    <!-- Header -->
+    <div class="header">
+        <div class="points-bubble" onclick="celebratePoints()">
+            <span style="font-size: 1.2em;">⭐</span>
+            <span id="totalPoints">250</span>
         </div>
-        
-        <!-- Navigation -->
-        <div class="nav-pills">
-            <button class="nav-pill active" onclick="switchTab('learn')">
-                <span>🌱</span>
-                <span>Learn</span>
-            </button>
-            <button class="nav-pill" onclick="switchTab('impact')">
-                <span>💚</span>
-                <span>Impact</span>
-            </button>
-            <button class="nav-pill" onclick="switchTab('rewards')">
-                <span>✨</span>
-                <span>Rewards</span>
+        <div class="header-emoji">🌿</div>
+        <h1>TapTrack</h1>
+        <p>Your sustainable journey</p>
+    </div>
+
+    <!-- Navigation -->
+    <div class="nav-pills">
+        <button class="nav-pill active" onclick="switchTab('learn')">
+            <span class="nav-pill-emoji">🌱</span>
+            <span class="nav-pill-text">Learn</span>
+        </button>
+        <button class="nav-pill" onclick="switchTab('impact')">
+            <span class="nav-pill-emoji">💚</span>
+            <span class="nav-pill-text">Impact</span>
+        </button>
+        <button class="nav-pill" onclick="switchTab('rewards')">
+            <span class="nav-pill-emoji">✨</span>
+            <span class="nav-pill-text">Rewards</span>
+        </button>
+    </div>
+
+    <!-- LEARN TAB -->
+    <div class="content">
+        <div id="learn-tab" class="tab-content active">
+
+            <!-- Main Visual Card -->
+            <div class="visual-card">
+                <span class="card-emoji">🌾</span>
+                <h3 class="card-title">Bioplastics</h3>
+                <p class="card-text">Made from plants, not petroleum</p>
+            </div>
+
+            <div class="visual-grid">
+                <div class="visual-box">
+                    <div class="visual-box-emoji">🌍</div>
+                    <div class="visual-box-value">70%</div>
+                    <div class="visual-box-label">Less CO₂</div>
+                </div>
+                <div class="visual-box">
+                    <div class="visual-box-emoji">♻️</div>
+                    <div class="visual-box-value">100%</div>
+                    <div class="visual-box-label">Renewable</div>
+                </div>
+                <div class="visual-box">
+                    <div class="visual-box-emoji">🌱</div>
+                    <div class="visual-box-value">8%</div>
+                    <div class="visual-box-label">Oil saved</div>
+                </div>
+                <div class="visual-box">
+                    <div class="visual-box-emoji">🔄</div>
+                    <div class="visual-box-value">0</div>
+                    <div class="visual-box-label">Toxic waste</div>
+                </div>
+            </div>
+
+            <!-- Journey -->
+            <h3 class="section-title">How it works</h3>
+
+            <div class="journey-steps">
+                <div class="journey-step">
+                    <div class="step-circle">🌾</div>
+                    <div class="step-content">
+                        <h4>Plant-based</h4>
+                        <p>From corn & sugarcane</p>
+                    </div>
+                </div>
+                <div class="journey-step">
+                    <div class="step-circle">📦</div>
+                    <div class="step-content">
+                        <h4>Smart package</h4>
+                        <p>NFC chip tracks everything</p>
+                    </div>
+                </div>
+                <div class="journey-step">
+                    <div class="step-circle">📱</div>
+                    <div class="step-content">
+                        <h4>You tap</h4>
+                        <p>Learn & earn points</p>
+                    </div>
+                </div>
+                <div class="journey-step">
+                    <div class="step-circle">🔄</div>
+                    <div class="step-content">
+                        <h4>Recycle smart</h4>
+                        <p>Returns to nature</p>
+                    </div>
+                </div>
+            </div>
+
+            <button class="action-btn" onclick="earnPoints(50, 'learning')">
+                <span>✓</span>
+                <span>Got it! (+50 pts)</span>
             </button>
         </div>
-        
-        <!-- LEARN TAB -->
-        <div class="content">
-            <div id="learn-tab" class="tab-content active">
-                
-                <!-- Main Visual Cards -->
-                <div class="visual-card">
-                    <span class="card-emoji">🌾</span>
-                    <h3 class="card-title">Bioplastics</h3>
-                    <p class="card-text">Made from plants, not petroleum</p>
-                </div>
-                
-                <div class="visual-grid">
-                    <div class="visual-box">
-                        <div class="visual-box-emoji">🌍</div>
-                        <div class="visual-box-value">70%</div>
-                        <div class="visual-box-label">Less CO₂</div>
+
+        <!-- IMPACT TAB -->
+        <div id="impact-tab" class="tab-content">
+
+            <div class="hero-impact">
+                <h2>Your Impact</h2>
+                <p class="hero-impact-subtitle">Making a real difference 💚</p>
+
+                <div class="impact-row">
+                    <div class="impact-item">
+                        <span class="impact-number" id="scans">12</span>
+                        <span class="impact-label">Products</span>
                     </div>
-                    <div class="visual-box">
-                        <div class="visual-box-emoji">♻️</div>
-                        <div class="visual-box-value">100%</div>
-                        <div class="visual-box-label">Renewable</div>
+                    <div class="impact-item">
+                        <span class="impact-number">8.4</span>
+                        <span class="impact-label">kg CO₂</span>
                     </div>
-                    <div class="visual-box">
-                        <div class="visual-box-emoji">🌱</div>
-                        <div class="visual-box-value">8%</div>
-                        <div class="visual-box-label">Oil saved</div>
-                    </div>
-                    <div class="visual-box">
-                        <div class="visual-box-emoji">🔄</div>
-                        <div class="visual-box-value">0</div>
-                        <div class="visual-box-label">Toxic waste</div>
+                    <div class="impact-item">
+                        <span class="impact-number">156</span>
+                        <span class="impact-label">Trees</span>
                     </div>
                 </div>
-                
-                <!-- Journey -->
-                <h3 style="margin: 32px 0 20px; font-size: 1.2em; color: #2d3748; text-align: center;">
-                    How it works
-                </h3>
-                
-                <div class="journey-steps">
-                    <div class="journey-step">
-                        <div class="step-circle">🌾</div>
-                        <div class="step-content">
-                            <h4>Plant-based</h4>
-                            <p>From corn & sugarcane</p>
-                        </div>
-                    </div>
-                    <div class="journey-step">
-                        <div class="step-circle">📦</div>
-                        <div class="step-content">
-                            <h4>Smart package</h4>
-                            <p>NFC chip tracks everything</p>
-                        </div>
-                    </div>
-                    <div class="journey-step">
-                        <div class="step-circle">📱</div>
-                        <div class="step-content">
-                            <h4>You tap</h4>
-                            <p>Learn & earn points</p>
-                        </div>
-                    </div>
-                    <div class="journey-step">
-                        <div class="step-circle">🔄</div>
-                        <div class="step-content">
-                            <h4>Recycle smart</h4>
-                            <p>Returns to nature</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <button class="action-btn" onclick="earnPoints(50, 'learning')">
-                    <span>✓</span>
-                    <span>Got it! (+50 pts)</span>
-                </button>
             </div>
-            
-            <!-- IMPACT TAB -->
-            <div id="impact-tab" class="tab-content">
-                
-                <div class="hero-impact">
-                    <h2>Your Impact</h2>
-                    <p class="hero-impact-subtitle">Making a real difference 💚</p>
-                    
-                    <div class="impact-row">
-                        <div class="impact-item">
-                            <span class="impact-number" id="scans">12</span>
-                            <span class="impact-label">Products</span>
-                        </div>
-                        <div class="impact-item">
-                            <span class="impact-number">8.4</span>
-                            <span class="impact-label">kg CO₂</span>
-                        </div>
-                        <div class="impact-item">
-                            <span class="impact-number">156</span>
-                            <span class="impact-label">Trees</span>
-                        </div>
-                    </div>
+
+            <!-- Progress Ring -->
+            <div class="progress-ring">
+                <div class="progress-circle">
+                    <svg width="140" height="140" class="progress-svg">
+                        <defs>
+                            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#c7f5e3;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#b5e7d9;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <circle class="progress-bg" cx="70" cy="70" r="60"></circle>
+                        <circle class="progress-bar-circle" cx="70" cy="70" r="60"
+                                stroke-dasharray="377" stroke-dashoffset="113"></circle>
+                    </svg>
+                    <div class="progress-text">70%</div>
                 </div>
-                
-                <!-- Progress Ring -->
-                <div class="progress-ring">
-                    <div class="progress-circle">
-                        <svg width="140" height="140" class="progress-svg">
-                            <defs>
-                                <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" style="stop-color:#c7f5e3;stop-opacity:1" />
-                                    <stop offset="100%" style="stop-color:#b5e7d9;stop-opacity:1" />
-                                </linearGradient>
-                            </defs>
-                            <circle class="progress-bg" cx="70" cy="70" r="60"></circle>
-                            <circle class="progress-bar-circle" cx="70" cy="70" r="60" 
-                                    stroke-dasharray="377" stroke-dashoffset="113"></circle>
-                        </svg>
-                        <div class="progress-text">70%</div>
-                    </div>
-                    <div class="progress-label">Level 2 → Level 3</div>
-                </div>
-                
-                <div class="info-bubble">
-                    <p>🇳🇱 <strong>Netherlands leading the way!</strong><br>
+                <div class="progress-label">Level 2 → Level 3</div>
+            </div>
+
+            <div class="info-bubble">
+                <p>🇳🇱 <strong>Netherlands leading the way!</strong><br>
                     On track for 15% bio-based by 2027</p>
-                </div>
-                
-                <div class="visual-card">
-                    <span class="card-emoji">🎯</span>
-                    <h3 class="card-title">Next Milestone</h3>
-                    <p class="card-text">13 more products to unlock Champion badge</p>
-                </div>
-                
-                <button class="action-btn" onclick="shareImpact()">
-                    <span>📤</span>
-                    <span>Share (+25 pts)</span>
-                </button>
             </div>
-            
-            <!-- REWARDS TAB -->
-            <div id="rewards-tab" class="tab-content">
-                
-                <h2 style="font-size: 1.4em; text-align: center; margin-bottom: 24px; color: #2d3748;">
-                    Your Collection
-                </h2>
-                
-                <div class="badges-container">
-                    <div class="badge-pill unlocked">
-                        <div class="badge-emoji">🌱</div>
-                        <div class="badge-name">Starter</div>
-                    </div>
-                    <div class="badge-pill unlocked">
-                        <div class="badge-emoji">📚</div>
-                        <div class="badge-name">Learner</div>
-                    </div>
-                    <div class="badge-pill unlocked">
-                        <div class="badge-emoji">🔟</div>
-                        <div class="badge-name">10 Club</div>
-                    </div>
-                    <div class="badge-pill">
-                        <div class="badge-emoji">🎯</div>
-                        <div class="badge-name">25 Goal</div>
-                    </div>
-                    <div class="badge-pill">
-                        <div class="badge-emoji">🏆</div>
-                        <div class="badge-name">Champion</div>
-                    </div>
-                    <div class="badge-pill">
-                        <div class="badge-emoji">💎</div>
-                        <div class="badge-name">Diamond</div>
-                    </div>
-                    <div class="badge-pill">
-                        <div class="badge-emoji">🌍</div>
-                        <div class="badge-name">Guardian</div>
-                    </div>
-                    <div class="badge-pill">
-                        <div class="badge-emoji">👑</div>
-                        <div class="badge-name">Legend</div>
-                    </div>
-                </div>
-                
-                <h3 style="margin: 32px 0 16px; font-size: 1.1em; color: #2d3748; text-align: center;">
-                    Earn Points
-                </h3>
-                
-                <div class="minimal-list">
-                    <div class="list-item">
-                        <div class="list-emoji">📱</div>
-                        <div class="list-text">Scan product</div>
-                        <div class="list-value">+10</div>
-                    </div>
-                    <div class="list-item">
-                        <div class="list-emoji">📚</div>
-                        <div class="list-text">Complete learning</div>
-                        <div class="list-value">+50</div>
-                    </div>
-                    <div class="list-item">
-                        <div class="list-emoji">📤</div>
-                        <div class="list-text">Share impact</div>
-                        <div class="list-value">+25</div>
-                    </div>
-                    <div class="list-item">
-                        <div class="list-emoji">♻️</div>
-                        <div class="list-text">Recycle</div>
-                        <div class="list-value">+15</div>
-                    </div>
-                </div>
-                
-                <div class="visual-card" style="background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%); border: none;">
-                    <span class="card-emoji">🎁</span>
-                    <h3 class="card-title" style="color: #2d3748;">Next Reward</h3>
-                    <p class="card-text" style="color: #4a5568;"><strong>10% discount</strong> at 500 points</p>
-                </div>
+
+            <div class="visual-card">
+                <span class="card-emoji">🎯</span>
+                <h3 class="card-title">Next Milestone</h3>
+                <p class="card-text">13 more products to unlock Champion badge</p>
             </div>
+
+            <button class="action-btn" onclick="shareImpact()">
+                <span>📤</span>
+                <span>Share (+25 pts)</span>
+            </button>
         </div>
-        
-        <!-- Footer -->
-        <div class="footer">
-            <div class="footer-emoji">🌿</div>
-            <p class="footer-text">
-                <strong>TapTrack by Meulendijks</strong><br>
-                Making sustainability simple
-            </p>
+
+        <!-- REWARDS TAB -->
+        <div id="rewards-tab" class="tab-content">
+
+            <h2 class="section-title">Your Collection</h2>
+
+            <div class="badges-container">
+                <div class="badge-pill unlocked">
+                    <div class="badge-emoji">🌱</div>
+                    <div class="badge-name">Starter</div>
+                </div>
+                <div class="badge-pill unlocked">
+                    <div class="badge-emoji">📚</div>
+                    <div class="badge-name">Learner</div>
+                </div>
+                <div class="badge-pill unlocked">
+                    <div class="badge-emoji">🔟</div>
+                    <div class="badge-name">10 Club</div>
+                </div>
+                <div class="badge-pill">
+                    <div class="badge-emoji">🎯</div>
+                    <div class="badge-name">25 Goal</div>
+                </div>
+                <div class="badge-pill">
+                    <div class="badge-emoji">🏆</div>
+                    <div class="badge-name">Champion</div>
+                </div>
+                <div class="badge-pill">
+                    <div class="badge-emoji">💎</div>
+                    <div class="badge-name">Diamond</div>
+                </div>
+                <div class="badge-pill">
+                    <div class="badge-emoji">🌍</div>
+                    <div class="badge-name">Guardian</div>
+                </div>
+                <div class="badge-pill">
+                    <div class="badge-emoji">👑</div>
+                    <div class="badge-name">Legend</div>
+                </div>
+            </div>
+
+            <h3 class="section-title">Earn Points</h3>
+
+            <div class="minimal-list">
+                <div class="list-item">
+                    <div class="list-emoji">📱</div>
+                    <div class="list-text">Scan product</div>
+                    <div class="list-value">+10</div>
+                </div>
+                <div class="list-item">
+                    <div class="list-emoji">📚</div>
+                    <div class="list-text">Complete learning</div>
+                    <div class="list-value">+50</div>
+                </div>
+                <div class="list-item">
+                    <div class="list-emoji">📤</div>
+                    <div class="list-text">Share impact</div>
+                    <div class="list-value">+25</div>
+                </div>
+                <div class="list-item">
+                    <div class="list-emoji">♻️</div>
+                    <div class="list-text">Recycle</div>
+                    <div class="list-value">+15</div>
+                </div>
+            </div>
+
+            <div class="visual-card" style="background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%); border: none;">
+                <span class="card-emoji">🎁</span>
+                <h3 class="card-title" style="color: #2d3748;">Next Reward</h3>
+                <p class="card-text" style="color: #4a5568;"><strong>10% discount</strong> at 500 points</p>
+            </div>
         </div>
     </div>
-    
-    <script>
-        let currentPoints = 250;
-        let completedActions = new Set();
-        
-        function switchTab(tab) {
-            // Remove active from all
-            document.querySelectorAll('.nav-pill').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            
-            // Add active to selected
-            event.target.closest('.nav-pill').classList.add('active');
-            document.getElementById(tab + '-tab').classList.add('active');
-            
-            // Mini points for exploration
-            if ((tab === 'impact' || tab === 'rewards') && !completedActions.has('explore_' + tab)) {
-                earnPoints(5, 'explore_' + tab, false);
-            }
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="footer-emoji">🌿</div>
+        <p class="footer-text">
+            <strong>TapTrack by Meulendijks</strong><br>
+            Making sustainability simple
+        </p>
+    </div>
+</div>
+
+<script>
+    let currentPoints = 250;
+    let completedActions = new Set();
+
+    function switchTab(tab) {
+        // Remove active from all
+        document.querySelectorAll('.nav-pill').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+        // Add active to selected
+        event.target.closest('.nav-pill').classList.add('active');
+        document.getElementById(tab + '-tab').classList.add('active');
+
+        // Mini points for exploration
+        if ((tab === 'impact' || tab === 'rewards') && !completedActions.has('explore_' + tab)) {
+            earnPoints(5, 'explore_' + tab, false);
         }
-        
-        function earnPoints(points, action, showAlert = true) {
-            if (completedActions.has(action)) {
-                if (showAlert) showNotification('Already earned! 💫');
-                return;
-            }
-            
-            currentPoints += points;
-            completedActions.add(action);
-            document.getElementById('totalPoints').textContent = currentPoints;
-            
-            // Animate badge
-            const badge = document.querySelector('.points-bubble');
-            badge.style.animation = 'none';
-            setTimeout(() => {
-                badge.style.animation = 'float 3s ease-in-out infinite';
-            }, 10);
-            
-            if (showAlert) {
-                showNotification(`+${points} points! 🎉`);
-            }
+    }
+
+    function earnPoints(points, action, showAlert = true) {
+        if (completedActions.has(action)) {
+            if (showAlert) showNotification('Already earned! 💫');
+            return;
         }
-        
-        function showNotification(message) {
-            const notification = document.createElement('div');
-            notification.textContent = message;
-            notification.style.cssText = `
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background: linear-gradient(135deg, #c7f5e3 0%, #b5e7d9 100%);
-                color: #2d3748;
-                padding: 20px 32px;
-                border-radius: 20px;
-                font-weight: 600;
-                font-size: 1.1em;
-                box-shadow: 0 8px 32px rgba(0,0,0,0.15);
-                z-index: 1000;
-                animation: popIn 0.3s ease;
-            `;
-            
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.style.animation = 'popOut 0.3s ease';
-                setTimeout(() => notification.remove(), 300);
-            }, 2000);
+
+        currentPoints += points;
+        completedActions.add(action);
+        document.getElementById('totalPoints').textContent = currentPoints;
+
+        // Animate badge
+        const badge = document.querySelector('.points-bubble');
+        badge.style.animation = 'none';
+        setTimeout(() => {
+            badge.style.animation = 'float 3s ease-in-out infinite';
+        }, 10);
+
+        if (showAlert) {
+            showNotification(`+${points} points! 🎉`);
+            createConfetti();
         }
-        
-        function shareImpact() {
-            if (navigator.share) {
-                navigator.share({
-                    title: 'My Sustainable Impact',
-                    text: 'I saved 8.4kg CO₂ with TapTrack! 🌱',
-                    url: window.location.href
-                }).then(() => {
-                    earnPoints(25, 'sharing');
-                }).catch(() => {});
-            } else {
+    }
+
+    function showNotification(message) {
+        const notification = document.createElement('div');
+        notification.className = 'notification';
+        notification.textContent = message;
+
+        document.body.appendChild(notification);
+
+        setTimeout(() => {
+            notification.style.animation = 'popOut 0.3s ease';
+            setTimeout(() => notification.remove(), 300);
+        }, 2000);
+    }
+
+    function shareImpact() {
+        if (navigator.share) {
+            navigator.share({
+                title: 'My Sustainable Impact',
+                text: 'I saved 8.4kg CO₂ with TapTrack! 🌱',
+                url: window.location.href
+            }).then(() => {
                 earnPoints(25, 'sharing');
-            }
+            }).catch(() => {});
+        } else {
+            earnPoints(25, 'sharing');
         }
-        
-        // Add pop animations
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes popIn {
-                from { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
-                to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-            }
-            @keyframes popOut {
-                from { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-                to { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
-            }
-        `;
-        document.head.appendChild(style);
-    </script>
+    }
+
+    function celebratePoints() {
+        createConfetti();
+        showNotification('You rock! 🌟');
+    }
+
+    function createConfetti() {
+        const colors = ['#ffd700', '#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#ffeaa7', '#dfe6e9', '#74b9ff'];
+
+        for (let i = 0; i < 30; i++) {
+            setTimeout(() => {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animation = `confettiFall ${2 + Math.random() * 2}s linear`;
+
+                document.body.appendChild(confetti);
+
+                setTimeout(() => confetti.remove(), 4000);
+            }, i * 50);
+        }
+    }
+
+    // Update desktop SVG size
+    function updateProgressRing() {
+        const svg = document.querySelector('.progress-svg');
+        const circle = document.querySelector('.progress-circle');
+
+        if (window.innerWidth >= 768) {
+            svg.setAttribute('width', '180');
+            svg.setAttribute('height', '180');
+            document.querySelectorAll('.progress-bg, .progress-bar-circle').forEach(c => {
+                c.setAttribute('cx', '90');
+                c.setAttribute('cy', '90');
+                c.setAttribute('r', '75');
+            });
+        }
+    }
+
+    window.addEventListener('resize', updateProgressRing);
+    updateProgressRing();
+</script>
 </body>
 </html>
